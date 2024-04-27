@@ -1,0 +1,172 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load custom_filters %}
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <title>Excel File Display</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/trucking_Frontend.css' %}">
+</head>
+
+<body>
+    <h4
+        style="color: #3498db; font-family: 'Arial', sans-serif; font-weight: bold; text-align:center; text-transform: uppercase;">
+        Auction Sheet origional
+    </h4>
+    <div class="container-table">
+        <table>
+            <!-- Your table content here -->
+            {{ data|safe }}
+        </table>
+    </div>
+
+
+    <!-- <div class="container"> -->
+    <h4
+        style="color: #3498db; font-family: 'Arial', sans-serif; font-weight: bold; text-align:center; text-transform: uppercase;">
+        Stock Sheet
+    </h4>
+    <div class="container-table">
+
+        <table class="record-table">
+            <thead>
+                <tr>
+                    <th>S.No.</th>
+                    <th>Chassis No</th>
+                    <th>POS No</th>
+                    <th>LOT No</th>
+                    <th>Model</th>
+                    <th>PICKUP LOC.</th>
+                    <th>DROP LOC.</th>
+                    <th>REMARK</th>
+                    <th>Colour</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in records %}
+
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ record|get_item:"Chassis No." }}</td>
+                        <td>{{ record|get_item:"POS No." }}</td>
+                        <td>{{ record|get_item:"Lot No." }}</td>
+                        <td>{{ record|get_item:"SKU" }}</td>
+
+                        <td>
+                            <select name="pickup_location">
+                                {% for record in records %}
+                                {% if record %}
+                                <option value='{{ record|get_item:"Drop Location" }}'>{{ record|get_item:"Pickup Location"}}</option>
+                                {% else %}
+                                {% with pickup_location=record|get_item:"Pickup Location" %}
+                                {% if pickup_location %}
+                                <option value="{{ pickup_location }}">{{ pickup_location }}</option>
+                                {% endif %}
+                                {% endwith %}
+                                {% endif %}
+                                {% endfor %}
+
+
+                            </select>
+                            <select id="table2_dropdown" name="table2_dropdown">
+                                {% for record in records %}
+                                {% with pickuplocation=record|get_item:"Pickup Location" %}
+                                    
+                                    {% if pickuplocation == pickup_location %}
+                                        <option value="{{ item2.name }}" selected>{{ item2.name }}</option>
+                                    {% else %}
+                                        <option value="{{ item2.name }}">{{ item2.name }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        </td>
+
+                        <!-- <td>
+                            <select name="pickup_location">
+                                {% for record in records %}
+                                    {% if not record %}
+                                        
+                                        <option value="0" disabled selected>Select pickup location</option>
+                                        <option value="0" disabled selected>{{record|get_item:"Drop Location"}}</option>                                  
+                                    
+                                    {% else %}                                  
+                                            {% with pickup_location=record|get_item:"Pickup Location" %}
+                                                {% if pickup_location %}
+                                                    <option value="{{ pickup_location }}">{{ pickup_location }}</option>
+                                                {% endif %}
+                                            {% endwith %}
+                                        
+                                    {% endif %} 
+                                {% endfor %}
+                            </select>
+                        </td> -->
+
+
+                        <td>
+                            <select>
+                                {% for record in records %}
+                                {% with drop_location=record|get_item:"Drop Location" %}
+                                {% if drop_location %}
+                                <option value="{{ drop_location }}">{{ drop_location }}</option>
+                                {% endif %}
+                                {% endwith %}
+                                {% endfor %}
+                            </select>
+
+                        </td>
+                        <td>
+                            {{ record|get_item:"Remarks" }}
+                        </td>
+                        <td>
+                            <select>
+                                <option value="0" disabled selected>Select a color</option>
+                                <option value="1">RED</option>
+                                <option value="2">ORANGE</option>
+                                <option value="3">BLUE</option>
+                                <option value="4">GREEN</option>
+                                <option value="5">PINK</option>
+                                <option value="6">DARK BLUE</option>
+                                <option value="7">STEEL BLUE</option>
+                                <option value="8">YELLOW</option>
+                                <option value="9">PURPLE</option>
+                                <option value="10">SILVER</option>
+                                <option value="11">LIGHT BLUE</option>
+                                <option value="12">DARK GREY</option>
+                                <option value="13">DEEP GREEN</option>
+                                <option value="14">BLACK</option>
+                                <option value="15">CREAM</option>
+                                <option value="16">WHITE</option>
+                                <option value="17">GOLDEN</option>
+                                <option value="18">GREY</option>
+                                <option value="19">BROWN</option>
+                                <option value="20">BEIGE</option>
+                                <option value="21">LAVENDER</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select>
+                                <option value="0" disabled selected>Select Status</option>
+                                <option value="Stock in transit (atl)">Stock in transit (atl)</option>
+                                <option value="Tracking only">Trucking Only</option>
+                            </select>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <br>
+    <div>
+        <button type="submit" class="submit-button">Submit</button>
+    </div>
+    <br>
+    <br>
+
+</body>
+
+
+{% endblock %}

@@ -1,0 +1,263 @@
+{% extends 'base.html' %}
+
+{% load custom_filters %}
+{% load static %}
+
+{% block content %}
+
+<head>
+    <meta charset="UTF-8">
+    <title>Excel File Display</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/trucking_Frontend.css' %}">
+</head>
+<style>
+    .hidden {
+        display: none;
+    }
+</style>
+
+<body>
+    <h4
+        style="color: #3498db; font-family: 'Arial', sans-serif; font-weight: bold; text-align:center; text-transform: uppercase; margin-top: 60px;">
+        Client Stock sheet
+    </h4>
+    <div class="container-table">
+        <table>
+            {{ data|safe }}
+        </table>
+    </div>
+
+
+    <h4
+        style="color: #3498db; font-family: 'Arial', sans-serif; font-weight: bold; text-align:center; text-transform: uppercase;">
+        New Stock Details
+    </h4>
+    <div class="container-table">
+
+        <table class="record-table">
+            <thead>
+                <tr>
+                    <th>SNo</th>
+                    <th class="hidden">vehicleModelId</th>
+                    <th>ChassisNo</th>
+                    <th>POSNo</th>
+                    <th>LOTNo</th>
+                    <th>Model</th>
+                    <th>PickupLocation</th>
+                    <th>DropLocation</th>
+                    <th>Remark</th>
+                    <th>Colour</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+
+
+                {% for record in records %}
+
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td class="hidden">{{ record|get_item:"Model ID" }}</td>
+                    <td>{{ record|get_item:"Chassis No." }}</td>
+                    <td>{{ record|get_item:"POS No." }}</td>
+                    <td>{{ record|get_item:"Lot No." }}</td>
+                    <td>{{ record|get_item:"SKU" }}</td>
+
+                    <td>
+                        <select id="locationSelect" style="width: 250px; padding: 4px;">
+                            <option value="0">Select Location</option>
+                            {% for locId, pickup_loc in pickup_locations.items %}
+                                {% with pickup_location=record|get_item:"Pickup Location" %}
+                                    {% if pickup_location == pickup_loc %}
+                                        <option value="{{ locId }}" selected>{{ pickup_loc }}</option>
+                                    {% endif %}
+                                    {% else}
+                                        <option value="{{ locId }}">{{ pickup_loc }}</option>
+                                {% endwith %}
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        <select id="locationSelect" style="width: 250px; padding: 4px; ">
+                            <option value="0">Select Location</option>
+                            {% for locId, pickup_loc in pickup_locations.items %}
+                                {% with drop_location=record|get_item:"Drop Location" %}
+                                    {% if drop_location == pickup_loc %}
+                                        <option value="{{ locId }}" selected>{{ pickup_loc }}</option>
+                                    {% endif %}
+                                    {% else}
+                                        <option value="{{ locId }}">{{ pickup_loc }}</option>
+                                {% endwith %}
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        {{ record|get_item:"Remarks" }}
+                    </td>
+                    <td>
+                        <select style="padding: 4px;">
+                            <option value="0" disabled selected>Select a color</option>
+                            <option value="3">BLUE</option>
+                            <option value="6">DARK BLUE</option>
+                            <option value="14">BLACK</option>
+                            <option value="15">CREAM</option>
+                            <option value="19">GREY</option>
+                            <option value="20">GREEN</option>
+                            <option value="21">YELLOW</option>
+                            <option value="22">ASS</option>
+                        </select>
+                        <!-- <select style="padding: 4px;">
+                            <option value="0" disabled selected>Select a color</option>
+                            <option value="1">RED</option>
+                            <option value="2">ORANGE</option>
+                            <option value="3">BLUE</option>
+                            <option value="4">GREEN</option>
+                            <option value="5">PINK</option>
+                            <option value="6">DARK BLUE</option>
+                            <option value="7">STEEL BLUE</option>
+                            <option value="8">YELLOW</option>
+                            <option value="9">PURPLE</option>
+                            <option value="10">SILVER</option>
+                            <option value="11">LIGHT BLUE</option>
+                            <option value="12">DARK GREY</option>
+                            <option value="13">DEEP GREEN</option>
+                            <option value="14">BLACK</option>
+                            <option value="15">CREAM</option>
+                            <option value="16">WHITE</option>
+                            <option value="17">GOLDEN</option>
+                            <option value="18">GREY</option>
+                            <option value="19">BROWN</option>
+                            <option value="20">BEIGE</option>
+                            <option value="21">LAVENDER</option>
+                        </select> -->
+                    </td>
+                    <td>
+                        <select style="padding: 4px;">
+                            <option value="0" disabled selected>Select Status</option>
+                            <option value="TRUCKINGONLY">TRUCKINGONLY</option>
+                            <option value="STOCKANDINTRANSIT">STOCKANDINTRANSIT</option>
+                        </select>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <br>
+    <div>
+        <button type="button" class="submit-button" onclick="submitForm()">Submit</button>
+    </div>
+
+    <script>
+        function submitForm() {
+            // Get all select dropdowns with the class "locationSelect"
+            var locationSelects = document.querySelectorAll("#locationSelect");
+
+            // Check if all select dropdowns have a non-zero value selected
+            var allSelected = true;
+            locationSelects.forEach(function (locationSelect) {
+                // Get the value of the current select dropdown
+                var selectedValue = locationSelect.value;
+
+                console.log("selectedValue", selectedValue)
+
+                // Perform validation for each select dropdown
+                if (selectedValue == "0") {
+                    // If no location is selected, highlight the select element
+                    allSelected = false;
+                    locationSelect.style.border = "2px solid red";
+                    // alert("Please select a location.");
+                    return;
+                } else {
+                    // If a location is selected, remove any existing border
+                    locationSelect.style.border = "";
+                }
+            });
+
+            // If all select dropdowns have a non-zero value selected, proceed with form submission
+            if (allSelected) {
+                // Perform form submission to the API endpoint
+                sendDataToAPI();
+            } else {
+                alert("Please select a location.");
+            }
+        }
+
+        function sendDataToAPI() {
+            var company_name = '{{company_name}}';
+            var ShippingCompanyName = '{{ShippingCompanyName}}'
+            var username = '{{username}}'
+            // Initialize payload object
+            var payload = {
+                "CompanyName": company_name,
+                "ShippingCompanyName": ShippingCompanyName,
+                "CreatedBy": username,
+                VehiclesDetails: []
+            };
+
+            // Get table rows
+            var tableRows = document.querySelectorAll('.record-table tbody tr');
+
+            // Loop through table rows
+            tableRows.forEach(function (row) {
+                // Initialize record object for each row
+                var record = {};
+
+                // Get table cells within the row
+                var cells = row.querySelectorAll('td');
+
+                // Loop through table cells
+                cells.forEach(function (cell, index) {
+                    // Extract data from each cell and add to record object
+                    var columnName = document.querySelector('.record-table thead th:nth-child(' + (index + 1) + ')').innerText.trim();
+                    var cellValue = cell.innerText.trim();
+
+                    // Check if the cell contains a dropdown
+                    var dropdown = cell.querySelector('select');
+                    if (dropdown) {
+                        var selectedValue = dropdown.value;
+                        record[columnName] = selectedValue;
+                    } else {
+                        record[columnName] = cellValue;
+                    }
+                });
+
+                // Add record object to payload
+                payload.VehiclesDetails.push(record);
+            });
+
+            // Convert payload to JSON string
+
+            var jsonPayload = JSON.stringify(payload);
+
+            console.log(jsonPayload);
+            // Send payload to API (replace 'API_URL' with your actual API endpoint)
+            fetch('https://atlapis.azurewebsites.net/api/addExistingStock', {
+                method: 'POST',
+                headers: {
+                    'x-functions-key': '7pYEofgTo7FyBN4VkYCp0GOh1x7NPoGV8FJQotmpU2vOAzFuYhxp1w==',
+                    'Content-Type': 'application/json'
+                },
+                body: jsonPayload
+            })
+                .then(response => {
+                    if (response.ok) {
+                        alert('Data submitted successfully!');
+                        // window.location.href = "{% url 'fileupload' %}";
+                    } else {
+                        alert('Error submitting data. Please try again.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred. Please try again later.');
+                });
+        }
+    </script>
+
+    <br>
+    <br>
+
+</body>
+{% endblock %}

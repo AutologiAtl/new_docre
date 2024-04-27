@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- <style>
+    .text-center{
+        margin-top: 273px;
+    }
+</style> -->
+
+<!-- your_template.html -->
+
+    <div class="text-center" style="margin-top:150px;">
+        <h4 style="color: #3498db; font-family: 'Arial', sans-serif; font-weight: bold; text-transform: uppercase;">
+            {{ message }}</h4>
+        <h4 style="color: #3498db; font-family: 'Arial', sans-serif; font-weight: bold; text-transform: uppercase;">
+            {{ excel_file_name }}</h4>
+
+        <p>Click the link below to download the Docre: </p>
+        <a href="{% url 'excel_download' %}" download="{{ excel_file_name }}">
+            <button class="btn btn-primary">Download Excel File</button>
+        </a>
+    </div>
+{% endblock %}

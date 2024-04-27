@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<title>Upload Excel File</title>
+<style>
+  body {
+    display: grid;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+
+  .form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+  }
+
+  .form-input {
+    margin-bottom: 15px;
+  }
+
+  .form-label {
+    font-size: medium;
+  }
+
+  .upload-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .upload-button:hover {
+    background-color: #0056b3;
+  }
+
+  form {
+    margin-top: 0em;
+  }
+  .message-container{
+    height:3vh;
+  }
+</style>
+<h4 style="color: #3498db; font-family: 'Arial', sans-serif; font-weight: bold; text-transform: uppercase; text-align: center;">
+  STOCK SHEET
+</h4>
+{% if messages %}
+    <ul class="messages" style="display: flex; justify-content: center; color: red; font-size: small; margin-bottom: -20px;">
+        {% for message in messages %}
+            <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message|safe }}</p>
+        {% endfor %}
+    </ul>
+  {% endif %}
+
+<div class="form-container">  
+  <form action="{% url 'fileupload' %}" method="post" enctype="multipart/form-data" class="form">
+    {% csrf_token %}
+    
+    <div class="form-input">
+      <label for="formFile" class="form-label">Upload Stock Sheet</label><br>
+      <input style="margin-top: 10px; font-size: small;  padding: 5px;" class="form-control" type="file"
+        accept=".xlsx" id="formFile" name="file" required>
+    </div>
+    <div class="form-input">
+      <label for="companyName" id="labels" class="form-label">Company Name:</label><br>
+      <select style="margin-top: 10px; font-size: small;  padding: 8px; width:270px; border-radius: 5px;" name="companyId" id="companyId" required>
+        <option value="0" disabled selected>Select Company Name</option>
+        <option value="3">AUTO LOGISTICS JAPAN LTD</option>
+        <option value="107">Transworld</option>
+        <option value="28">Auto Quest</option>
+      </select>
+    </div>
+    <div class="form-input" style="margin-top: 10px;">
+      <label for="shippingCompanyName" id="labels" class="form-label">Shipping Company Name:</label><br>
+      <select style="margin-top: 10px; font-size: small; padding: 8px;  width: 270px; border-radius: 5px;" name="shippingCompanyName"
+        id="shippingCompanyName" required>
+        <option value="0" disabled selected>Select Shipping Company</option>
+        <option value="3">AUTO LOGISTICS JAPAN LTD</option>
+        <option value="107">Transworld</option>
+        <option value="28">Auto Quest</option>
+      </select>
+
+      
+    <div class="form-input" id="selectedCompanyName" hidden>
+      
+    </div>
+    </div><br>
+    <button type="submit" class="upload-button">Upload</button>
+  </form>
+
+</div>
+
+
+<script>
+  var companyNameSelect = document.getElementById('companyId');
+  function updateSelectedCompanyName() {
+    var selectedCompanyName = companyNameSelect.options[companyNameSelect.selectedIndex].text;
+    document.getElementById('selectedCompanyName').innerText = selectedCompanyName;
+  }
+  companyNameSelect.addEventListener('change', updateSelectedCompanyName);
+  updateSelectedCompanyName();
+  companyNameSelect.addEventListener('change', function() {
+    document.getElementById('companyForm').submit();
+  });
+</script>
+
+{% endblock %}

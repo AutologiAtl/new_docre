@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<div class="container" style="margin-top: 70px;">
+  <form action="" method="GET" style="display: flex;">
+    <div class="form-group">
+      <input type="text" name="search" class="form-control mb-3" placeholder="Search files"  required>
+    </div>
+    <button type="submit" class="btn btn-primary" style="padding: 1px 25px;height: 35px;margin-left: 5px;">Search</button>
+  </form>
+
+  <table class="table" id="fileTable">
+    <thead>
+      <tr>
+        <th>Booking No:</th>
+        <th>Company Name:</th>
+        <th>Shipping Com Name:</th>
+        <th>Created Date</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for file in page_obj %}
+      <tr>
+        <td class="t-f">{{ file.bookingNo }}</td>
+        <td class="t-f">{{ file.bookingCompany }}</td>
+        <td class="t-f">{{ file.shippingCompany }}</td>
+        <td class="t-f c-d">
+            {{ file.createdDate|date:"Y-m-d" }}
+          </td>
+
+        <td>
+          {% if file.fullname %}
+          <a href="{% url 'download_file' file.fullname %}" class="btn btn-primary dwn-btn ">Download</a>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  
+  
+  <!-- Pagination -->
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+      {% if page_obj.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?page=1" aria-label="First">
+          <span aria-hidden="true">&laquo;&laquo;</span>
+          <span class="sr-only">First</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+          <span class="sr-only">Previous</span>
+        </a>
+      </li>
+      {% endif %}
+      {% for num in page_obj.paginator.page_range %}
+      <li class="page-item {% if num == page_obj.number %}active{% endif %}">
+        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+      </li>
+      {% endfor %}
+      {% if page_obj.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+          <span class="sr-only">Next</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Last">
+          <span aria-hidden="true">&raquo;&raquo;</span>
+          <span class="sr-only">Last</span>
+        </a>
+      </li>
+      {% endif %}
+    </ul>
+  </nav>
+  
+</div>
+
+{% endblock %}

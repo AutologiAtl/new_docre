@@ -1,0 +1,33 @@
+{
+  "CompanyName": "8",
+  "ShippingCompanyName": "107",
+  "Created_by": "admin",
+  "Vehicles_Details": [
+    {
+      "S.No.": "1",
+      "vehicleModelId": "5977",
+      "Chassis No": "LA350A-0003405",
+      "POS No": "P5557",
+      "LOT No": "1049",
+      "Model": "PIXIS EPOCH",
+      "Pickup Location": "2",
+      "Drop Location": "2",
+      "REMARK": "hey I'm manish",
+      "Colour": "4",
+      "Status": "TRUCKINGONLY"
+    },
+    {
+      "S.No.": "2",
+      "vehicleModelId": "6084",
+      "Chassis No": "DE3FS-134342",
+      "POS No": "P5557",
+      "LOT No": "70064",
+      "Model": "DEMIO",
+      "Pickup Location": "4",
+      "Drop Location": "5",
+      "REMARK": "",
+      "Colour": "3",
+      "Status": "STOCKANDINTRANSIT"
+    }
+  ]
+}

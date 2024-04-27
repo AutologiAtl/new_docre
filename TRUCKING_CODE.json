@@ -1,0 +1,69 @@
+{
+  "CompanyName": "8",
+  "ShippingCompanyName": "8",
+  "Vehicles_Details": [
+    {
+      "pickupLocationId": 544,
+      "dropLocationId": 595,
+      "chassisNo.": "LA350A-0003412",
+      "posNo.": "P5557",
+      "lotNo.": 1049,
+      "vehicleModelId": 1,
+      "remarks": " "
+    },
+    {
+      "pickupLocationId": 544,
+      "dropLocationId": 595,
+      "chassisNo.": "DE3FS-1343423",
+      "posNo.": "P5557",
+      "lotNo.": 70064,
+      "vehicleModelId": 2,
+      "remarks": " "
+    },
+    {
+      "pickupLocationId": 544,
+      "dropLocationId": 595,
+      "chassisNo.": "SKP2V-2091974",
+      "posNo.": "P5557",
+      "lotNo.": 60048,
+      "vehicleModelId": 0,
+      "remarks": " "
+    },
+    {
+      "pickupLocationId": 544,
+      "dropLocationId": 595,
+      "chassisNo.": "DE3FS-2729885",
+      "posNo.": "P5557",
+      "lotNo.": 70144,
+      "vehicleModelId": 4,
+      "remarks": " "
+    },
+    {
+      "pickupLocationId": 472,
+      "dropLocationId": 595,
+      "chassisNo.": "DJ5FS-1307166",
+      "posNo.": 9047,
+      "lotNo.": 30015,
+      "vehicleModelId": 5,
+      "remarks": " "
+    },
+    {
+      "pickupLocationId": 472,
+      "dropLocationId": 595,
+      "chassisNo.": "DE3FS-1971917",
+      "posNo.": 9047,
+      "lotNo.": 30502,
+      "vehicleModelId": 6,
+      "remarks": " "
+    },
+    {
+      "pickupLocationId": 472,
+      "dropLocationId": 595,
+      "chassisNo.": "DE3FS-1160598",
+      "posNo.": 9047,
+      "lotNo.": 266,
+      "vehicleModelId": 7,
+      "remarks": " "
+    }
+  ]
+}

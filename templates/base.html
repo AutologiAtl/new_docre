@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}ATL DOCRE{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-...">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/css/select2.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Include Select2 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+
+    <!-- Include Select2 JS -->
+<!-- Include jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Include Selectize.js CSS -->
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/css/selectize.default.min.css">
+
+<!-- Include Selectize.js JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/js/standalone/selectize.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css">
+
+<!-- Include jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Include Choices.js JS -->
+<script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Include Select2 CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+
+<!-- Include Select2 JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100%;            
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            flex: 1;
+        }
+        .footer{
+            width: 100%;
+            height: 50px;
+            background-color: #333;
+            text-align: top;
+       
+        }
+        .navbar{
+            width: 100%;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+
+        }
+        .py-3{
+            position: fixed;
+            bottom: 0;
+            width: -webkit-fill-available;
+        }
+        .logout{
+            background-color: crimson;
+            color: white;
+            border-radius: 4px;
+
+        }
+        .list-group-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .form-group{
+        margin-left: auto;
+    }
+    #fileTable th {
+        text-align: center;
+    }
+
+    /* Center align the text in the table cells */
+    #fileTable td {
+        text-align: center;
+    }
+    .t-f{
+        font-size: 13px;
+    }
+    .dwn-btn{
+        width: 104px;
+        font-size: 10px;
+      }
+    .file-icon {
+      font-size: 15px;
+      margin-right: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .file-icon {
+        font-size: 20px;
+      }
+      .list-group-item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    #fileTable th {
+        text-align: center;
+        border: 1px solid #dddddd; 
+        background-color: #f2f2f2; 
+        padding: 8px;
+        font-size: small;
+    }
+
+    #fileTable td {
+        text-align: center;
+        border: 1px solid #dddddd;
+        padding: 8px;
+    }
+
+    #fileTable tbody tr:hover {
+        background-color: #f5f5f5;
+    }
+
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light bg-silver"> <!-- Add bg-silver class -->
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/dashboard">ATLExtracter</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            DOCRE
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="{% url 'file_upload' %}">Upload</a></li>
+                            <li><a class="dropdown-item" href="{% url 'file_list' %}">List View</a></li>
+                            <!-- <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li> -->
+                        </ul>
+                    </li>
+                    <li class="nav-item {% if request.path == 'fileupload' %}active{% endif %}">
+                        <a class="nav-link" href="{% url 'fileupload' %}">TRUCKING</a>
+                    </li>
+
+
+
+                        <!-- <li class="nav-item {% if request.path == 'file_upload' %}active{% endif %}">
+                        <a class="nav-link" href="{% url 'file_upload' %}">Upload</a>
+                    </li> -->
+                    <!-- <li class="nav-item {% if request.path == 'file_list' %}active{% endif %}">
+                        <a class="nav-link" href="{% url 'file_list' %}">File List</a>
+                    </li> -->
+                    <!-- <li class="nav-item {% if request.path == 'file_list' %}active{% endif %}">
+                        <a class="nav-link" href="{% url 'login' %}">Login</a>
+                    </li> -->
+                    
+                </ul>
+                <form method="post" class="d-flex">
+                    {% csrf_token %}
+                    <button type="submit" class="nav-item logout"><a href="{% url 'logout' %}">Logout</a></button>
+                </form>
+                
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt">
+        {% block content %}{% endblock %}
+    </div>
+    <footer class="bg-light text-center py-3">
+        <div class="container">
+            <p class="mb-0 text-muted">© 2023 CELERITY INFOSERVICES</p>
+        </div>
+    </footer>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!-- Include Select2 JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/js/select2.min.js"></script>
+</body>
+
+</html>
