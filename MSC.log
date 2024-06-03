@@ -1,0 +1,27 @@
+2024-04-27 18:06:15,662 - ERROR - Here is the Error 
+None 
+
+ Exception 
+cannot access local variable 'bl_issue_from_excel' where it is not associated with a value
+2024-04-29 11:57:21,753 - ERROR - Here is the Error 
+None 
+
+ Exception 
+cannot access local variable 'bl_issue_from_excel' where it is not associated with a value
+2024-04-29 12:00:36,514 - INFO - C:\Users\ATLAnish\Desktop\merge_code\Atl_Dockery\business_logic\excel_extracter\MSC_excelFormat.py changed, reloading.
+2024-04-29 12:01:12,155 - ERROR - Here is the Error 
+None 
+
+ Exception 
+cannot access local variable 'bl_issue_from_excel' where it is not associated with a value
+2024-04-29 12:30:37,120 - WARNING - Bad Request: /update_data/
+2024-04-29 12:41:16,001 - WARNING - Bad Request: /update_data/
+2024-04-29 13:42:51,354 - WARNING - Bad Request: /update_data/
+2024-04-30 09:15:31,184 - WARNING - Not Found: /index/
+2024-04-30 09:15:50,480 - WARNING - Not Found: /index/
+2024-04-30 09:15:53,925 - WARNING - Not Found: /index/
+2024-06-03 14:22:18,213 - ERROR - Here is the Error 
+None 
+
+ Exception 
+cannot access local variable 'bl_issue_from_excel' where it is not associated with a value

@@ -33,6 +33,7 @@ class MSCExcelWriter:
 					freight_from_excel      = final_values[3] if len(final_values) > 0 else None
 					vessalNUMber_from_excel = final_values[4] if len(final_values) > 0 else None
 					bl_issue_from_excel     = final_values[5] if len(final_values) > 0 else None
+					print("bl_issue_from_excel11",bl_issue_from_excel)
 
 				elif len(final_values) <=4:
 					
@@ -40,6 +41,7 @@ class MSCExcelWriter:
 					notify_party_from_excel = final_values[1] if len(final_values) > 0 else None
 					freight_from_excel      = final_values[2] if len(final_values) > 0 else None
 					bl_issue_from_excel     = final_values[3] if len(final_values) > 0 else None
+					print("bl_issue_from_excel22",bl_issue_from_excel)
 				
 				else:
 					print("Not enough values in final_values to create DataFrame.")
@@ -52,6 +54,9 @@ class MSCExcelWriter:
 				consignee 		= consignee_from_excel
 				Notify_party 	= notify_party_from_excel
 				bl_issue 		= bl_issue_from_excel
+				print("consignee",consignee)
+				print("Notify_party",Notify_party)
+				print("bl_issue",bl_issue)
 				return consignee, Notify_party, bl_issue
 			
 			else:
